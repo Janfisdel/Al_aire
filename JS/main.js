@@ -83,15 +83,30 @@ function agregarAlCarrito(id) {
                                         <td>${productoAgregar.nombre}</td>
                                         <td id="cantidad${productoAgregar.id}">${productoAgregar.cantidad}</td>
                                         <td id="produc${productoAgregar.id}">$${productoAgregar.precio}</td>
-                                        <td><button type="button" class="btn btn-success"><b> + </b></burron>
-                                        <button type="button" class="btn btn-info"><b> - </b></burron></td>
+                                        <td><button id="sumar${productoAgregar.id}"  type="button" class="btn btn-success"><b> + </b></button>
+                                        <button  id="restar${productoAgregar.id}" type="button" class="btn btn-info"><b> - </b></button></td>
                                         <td ><button id="eliminar${productoAgregar.id}" type="button" class="btn btn-primary"><b>X</b></button></td> 
                                            
                                     </tr>`);
 
         actualizarProductos();
 
-        // PONER EN EL BOTON DE ELIMINAR QUE VUELVA EL COLOR DEL BOTON DEL GRID
+      //botones que suman o restan una unidad del producto
+      $(`#sumar${productoAgregar.id}`).click(function(){
+        agregarAlCarrito(id);
+
+        $(`#card${productoAgregar.id}`)
+        .fadeOut(500)
+        .fadeIn(500)
+        .css("border", "0.3rem solid rgb(248, 157, 171)")
+        } )
+
+       
+
+
+
+
+        //Boton que elimina todos los productos del mismo nombre
         $(`#eliminar${productoAgregar.id}`).click(function () {
           $("tr").remove(`#tr${productoAgregar.id}`);
           carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
@@ -189,11 +204,25 @@ function obtenerLocalStorage() {
       <td>${el.nombre}</td>
       <td id="cantidad${el.id}">${el.cantidad}</td>
       <td id="produc${el.id}">$${el.precio * el.cantidad}</td>
-      <td><button type="button" class="btn btn-success"><b> + </b></burron>
-      <button type="button" class="btn btn-info"><b> - </b></burron></td>
+      <td><button id="sumar${el.id}" type="button" class="btn btn-success"><b> + </b></burron>
+      <button id="restar${el.id}" type="button" class="btn btn-info"><b> - </b></burron></td>
       <td ><button id="eliminar${el.id}" type="button" class="btn btn-primary"><b>X</b></button></td> 
          
-  </tr>`);
+             </tr>`);
+
+      //botones que suman o restan una unidad del producto
+      
+      $(`#sumar${el.id}`).click(function(){
+        agregarAlCarrito(el.id);
+        $(`#card${el.id}`)
+        .fadeOut(500)
+        .fadeIn(500)
+        .css("border", "0.3rem solid rgb(248, 157, 171)")
+        } )
+  
+
+
+
 
       $(`#boton${el.id}`).css({
         "background-color": "rgb(241, 159, 198)",
