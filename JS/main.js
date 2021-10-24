@@ -120,8 +120,6 @@ function agregarAlCarrito(id) {
 // funcion para mostrar el precio y la cantidad total de productos en el carrito tanto en la tabla como en el HEADER
 
 function actualizarProductos() {
-
-
   precio = 0;
   cantidad = 0;
   $("#vaciar").empty()
@@ -138,17 +136,36 @@ function actualizarProductos() {
   else {
     $("#total").empty()
     $("#total").append(`<b>TOTAL</b>`)
-    $("#vaciar").append(`<button" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button>`)
+    $("#vaciar").append(`<button id="vaciarCarrito" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button>`)
     $("#contador_carrito").text(
     "Carrito (" + carrito.reduce((acc, el) => acc + el.cantidad, 0) + ")"
   );
   for (let i = 0; i < carrito.length; i++) {
     precio += carrito[i].precio * carrito[i].cantidad;
     cantidad += carrito[i].cantidad;
+ 
+
   }
   $("#cantTotal").text(cantidad + " unidades");
   $("#precioFinal").text("$" + precio);
   
+  $("#vaciarCarrito").click( ()=>{
+    carrito = [];
+    
+      $("#contenedor-carrito").empty();
+      $(`.card`).css("border", "1px solid rgba(0,0,0,.125)");
+       $(`.btn-primary`).css({"background-color": "#d4374f",
+                                  color: "#fff" })
+      actualizarProductos()
+
+      Toastify({
+        text: "CARRITO VACIO",
+        className: "info",
+        position: "center",
+        style: { background: "linear-gradient(to right, blue, grey)" },
+      }).showToast();
+    })
+
   }
   guardarLocalStorage();
 }
