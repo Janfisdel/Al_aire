@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: black;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+header {
+  background-color: lightpink;
+  top: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  /*MODIFICACION NAV BAR BOOTSTRAP*/
+}
+
+header a {
+  border-radius: 1rem;
+}
+
+header a:hover {
+  background-color: #f89dab;
+}
+
+header .navbar-light .navbar-nav .nav-link.active,
+header .navbar-light .navbar-nav .show > .nav-link {
+  color: #ed143d;
+  font-size: 1.3rem;
+  margin-left: 4rem;
+}
+
+.bg-light {
+  --bs-bg-opacity: 0;
+}
+
+#portada {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#portada img {
+  width: 100%;
+  height: 100vh;
+}
+
+.titulo {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+.titulo h1 {
+  width: 25%;
+  margin: auto;
+  font-size: 5rem;
+  background-color: rgba(76, 0, 130, 0.836);
+  color: whitesmoke;
+  border-radius: 30px;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #d4374f;
+  border: #d4374f;
+  font-size: 1.5rem;
+}
+
+.btn-primary:hover {
+  background-color: rgba(212, 55, 78, 0.897);
+  font-size: 1.5rem;
+  -webkit-box-shadow: 0 8px 16px 0;
+          box-shadow: 0 8px 16px 0;
+  color: black;
+  border: black;
+}
+
+.btn-primary a {
+  color: black;
+}
+
+.btn-primary:focus {
+  background-color: rgba(212, 55, 78, 0.897);
+}
+
+main {
+  margin: 10rem;
+  padding-top: 5rem;
+}
+
+.titulo_productos {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.titulo_productos h2 {
+  font-size: 5rem;
+  color: #f06c80;
+}
+
+.imgProducto {
+  height: 20rem;
+}
+
+.table-carrito {
+  padding: 1rem;
+}
+
+.btn-info {
+  border-radius: 1rem;
+  border: 1px solid black;
+}
+
+.btn-success {
+  border-radius: 1rem;
+  border: 1px solid black;
+}
+
+.btn-secondary {
+  background-color: #f19fc6;
+  color: black;
+}
+/*# sourceMappingURL=style.css.map */
