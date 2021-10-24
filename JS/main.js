@@ -95,16 +95,60 @@ function agregarAlCarrito(id) {
       $(`#sumar${productoAgregar.id}`).click(function(){
         agregarAlCarrito(id);
 
-        $(`#card${productoAgregar.id}`)
-        .fadeOut(500)
-        .fadeIn(500)
-        .css("border", "0.3rem solid rgb(248, 157, 171)")
+        $(`#card${productoAgregar.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
+        Toastify({
+          text: "Producto agregado",
+          className: "info",
+          position: "center",
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+        }).showToast();
         } )
 
-       
+        $(`#restar${productoAgregar.id}`).click(function() {
+         let restarUnidad = carrito.find((produ) => produ.id == id)
+         restarUnidad.cantidad = restarUnidad.cantidad - 1;
+         if (restarUnidad.cantidad === 0){
+          $("tr").remove(`#tr${productoAgregar.id}`);
+          carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
+          actualizarProductos();
+          Toastify({
+            text: "Producto eliminado",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
 
+          $(`#card${productoAgregar.id}`)
+            .fadeOut(500)
+            .fadeIn(500)
+            .css("border", "1px solid rgba(0,0,0,.125)");
+          $(`#boton${productoAgregar.id}`).css({
+            "background-color": "#d4374f",
+            color: "#fff",
+          })
 
+         } else {
 
+         
+         
+         $(`#cantidad${restarUnidad.id}`).empty();
+         $(`#produc${restarUnidad.id}`).empty();
+         $(`#cantidad${restarUnidad.id}`).append(` <td id="cantidad${restarUnidad.id}">${restarUnidad.cantidad}</td>`);
+         $(`#produc${restarUnidad.id}`).append(`<td id="produc${restarUnidad.id}">$${restarUnidad.cantidad * restarUnidad.precio}</td>`);
+     
+         actualizarProductos();
+         Toastify({
+          text: "Producto eliminado",
+          className: "info",
+          position: "center",
+          style: { background: "linear-gradient(to right, red, orange)" },
+        }).showToast();
+        
+         }
+
+        })
 
         //Boton que elimina todos los productos del mismo nombre
         $(`#eliminar${productoAgregar.id}`).click(function () {
@@ -210,17 +254,60 @@ function obtenerLocalStorage() {
          
              </tr>`);
 
+    
       //botones que suman o restan una unidad del producto
-      
       $(`#sumar${el.id}`).click(function(){
         agregarAlCarrito(el.id);
-        $(`#card${el.id}`)
-        .fadeOut(500)
-        .fadeIn(500)
-        .css("border", "0.3rem solid rgb(248, 157, 171)")
+        $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)")
+        Toastify({
+          text: "Producto agregado",
+          className: "info",
+          position: "center",
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+        }).showToast();
         } )
   
+        $(`#restar${el.id}`).click(function() {
+          let restarU = carrito.find((produ) => produ.id == el.id)
+          restarU.cantidad = restarU.cantidad - 1;
+          if (restarU.cantidad === 0){
+           $("tr").remove(`#tr${el.id}`);
+           carrito = carrito.filter((prodE) => prodE.id != el.id);
+           actualizarProductos();
 
+           Toastify({
+            text: "Producto eliminado",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
+
+          $(`#card${el.id}`).css("border", "1px solid rgba(0,0,0,.125)");
+          $(`#boton${el.id}`).css({
+            "background-color": "#d4374f",
+            color: "#fff",
+          })
+ 
+          } else {
+           
+          $(`#cantidad${restarU.id}`).empty();
+          $(`#produc${restarU.id}`).empty();
+          $(`#cantidad${restarU.id}`).append(` <td id="cantidad${restarU.id}">${restarU.cantidad}</td>`);
+          $(`#produc${restarU.id}`).append(`<td id="produc${restarU.id}">$${restarU.cantidad * restarU.precio}</td>`);
+      
+          actualizarProductos();
+         
+          Toastify({
+            text: "Producto eliminado",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
+          }
+ 
+         })
 
 
 
