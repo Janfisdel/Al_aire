@@ -78,7 +78,7 @@ function agregarAlCarrito(id) {
 
 
         productoAgregar.cantidad = 1;
-        $("#contenedor-carrito").append(`<tr id="tr${productoAgregar.id}">
+        $("#contenedor-carrito").prepend(`<tr id="tr${productoAgregar.id}">
                                         <th scope="row"></th>
                                         <td>${productoAgregar.nombre}</td>
                                         <td id="cantidad${productoAgregar.id}">${productoAgregar.cantidad}</td>
@@ -126,14 +126,14 @@ function actualizarProductos() {
   //$("#contenedor-final").empty
   
    if (carrito.length === 0) {
-    $("#contenedor-final").empty()
-    $("#contenedor-final").append(`<tr> <th></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td><b>CARRITO VACIO</b></td>
-                                        <td></td>`)
-  $("#contador_carrito").text("Carrito");
-   }
+   //  $("#footer").empty();
+$("#contenedor-final").empty()
+ $("#contenedor-final").append(`<tr> <th></th>
+                                   <td></td>
+                                  <td><b>CARRITO VACIO</b></td>
+                                  <td></td></tr>`)
+ $("#contador_carrito").text("Carrito");
+} 
   else {
   
     for (let i = 0; i < carrito.length; i++) {
@@ -168,7 +168,7 @@ function obtenerLocalStorage() {
       carrito.push(el);
       actualizarProductos();
 
-      $("#contenedor-carrito").append(`<tr id="tr${el.id}">
+      $("#contenedor-carrito").prepend(`<tr id="tr${el.id}">
       <th scope="row"></th>
       <td>${el.nombre}</td>
       <td id="cantidad${el.id}">${el.cantidad}</td>
