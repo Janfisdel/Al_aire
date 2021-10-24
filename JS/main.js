@@ -115,40 +115,41 @@ function agregarAlCarrito(id) {
       }
     });
   }
+
 }
 
 // funcion para mostrar el precio y la cantidad total de productos en el carrito tanto en la tabla como en el HEADER
 
 function actualizarProductos() {
-
-
   precio = 0;
   cantidad = 0;
-  $("#vaciar").empty()
-  $("#total").empty()
+  //$("#contenedor-final").empty
   
-
-  if (carrito.length === 0) {
-    $("#vaciar").append(`<b>CARRITO VACIO</b>`);
-    $("#contador_carrito").text("Carrito");
-    $("#cantTotal").empty();
-    $("#precioFinal").empty();
-    $("#total").empty();
-  }
+   if (carrito.length === 0) {
+    $("#contenedor-final").empty()
+    $("#contenedor-final").append(`<tr> <th></th>
+                                        <td></td>
+                                        <td></td>
+                                        <td><b>CARRITO VACIO</b></td>
+                                        <td></td>`)
+  $("#contador_carrito").text("Carrito");
+   }
   else {
-    $("#total").empty()
-    $("#total").append(`<b>TOTAL</b>`)
-    $("#vaciar").append(`<button" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button>`)
-    $("#contador_carrito").text(
-    "Carrito (" + carrito.reduce((acc, el) => acc + el.cantidad, 0) + ")"
-  );
-  for (let i = 0; i < carrito.length; i++) {
+  
+    for (let i = 0; i < carrito.length; i++) {
     precio += carrito[i].precio * carrito[i].cantidad;
     cantidad += carrito[i].cantidad;
   }
-  $("#cantTotal").text(cantidad + " unidades");
-  $("#precioFinal").text("$" + precio);
   
+    $("#contenedor-final").empty()
+    $("#contenedor-final").append(`<tr> <th></th>
+                                        <td> <b>TOTAL</b></td>
+                                        <td> ${cantidad} unidades </td>
+                                        <td>$ ${precio}</td>
+                                        <td><button" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button></td>`)
+    
+  $("#contador_carrito").text("Carrito (" + carrito.reduce((acc, el) => acc + el.cantidad, 0) + ")");
+ 
   }
   guardarLocalStorage();
 }
