@@ -94,8 +94,7 @@ header {
     
   }
 }
-
-main {
+#conteiner-principal{
   margin: 10rem;
   padding-top: 5rem;
 }
@@ -140,4 +139,20 @@ main {
   background-color: rgb(241, 159, 198);
   color: black;
 
+}
+
+.contador_carrito {
+  font-weight: bold;
+}
+
+#main-carrito {
+  margin-top: 6rem;
+}
+
+p{
+  font-weight: bold;
+  &:hover{
+    background-color: rgb(248, 157, 171);
+    border-radius: 1rem;
+  }
 }

@@ -187,7 +187,7 @@ function actualizarProductos() {
 
   if (carrito.length === 0) {
     $("#vaciar").append(`<b>CARRITO VACIO</b>`);
-    $("#contador_carrito").text("Carrito");
+    $(".contador_carrito").text("Carrito");
     $("#cantTotal").empty();
     $("#precioFinal").empty();
     $("#total").empty();
@@ -196,7 +196,7 @@ function actualizarProductos() {
     $("#total").empty()
     $("#total").append(`<b>TOTAL</b>`)
     $("#vaciar").append(`<button id="vaciarCarrito" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button>`)
-    $("#contador_carrito").text(
+    $(".contador_carrito").text(
     "Carrito (" + carrito.reduce((acc, el) => acc + el.cantidad, 0) + ")"
   );
   for (let i = 0; i < carrito.length; i++) {

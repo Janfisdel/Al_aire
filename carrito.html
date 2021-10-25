@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="BOOTSTRAP/bootstrap.min.css" />
+    <link rel="stylesheet" href="SASS/style.css" />
+    <title>Al aire! | Carrito de compras</title>
+</head>
+<body>
+    <header>
+      <!-- Menú de navegación entre páginas -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+            <img src="IMG/logo.jpg" alt="logo" width="40" height="40" class="d-inline-block align-text-top"/>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" aria-current="page"  href="index.html#conteiner-principal"> Productos</a>
+                <p class="nav-link active contador_carrito" aria-current="page"  > Carrito</p>
+            
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+    <main id="main-carrito">
+        <div class="titulo_productos" id="titulo_carrito"><h2 >Carrito de compras</h2>
+        </div>
+
+        <div class="table-carrito">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Accion</th>
+                    <th scope="col">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody id="contenedor-carrito">
+                 <tr>
+                    <th scope="row"></th>
+                    <td>producto.nombre</td>
+                    <td>producto.cantidad</td>
+                    <td>producto.precio</td>
+                  </tr>
+        
+                  <!-- <tr>
+                    <th scope="row"></th>
+                    <td><b>Total</b></td>
+                    <td>CANTIDAD TOTAL</td>
+                    <td>PRECIO TOTAL</td>
+                  </tr> -->
+                  
+        
+                </tbody>
+              </table>
+            </div>
+              <table class="table">
+                <tbody>
+                <tr>
+                  <th></th>
+                  <td id="total"><b></b></td>
+                  <td id="cantTotal"></td>
+                  <td id="precioFinal"></td>
+                  <td id="vaciar"><b>CARRITO VACIO</b></td>
+        
+                </tbody>
+        
+              </table>
+        
+
+
+    </main>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="BOOTSTRAP/bootstrap.min.js"></script>
+  <script src="JS/stock.js"></script>
+  <script src="JS/main.js"></script>
+</body>
+</html>

@@ -98,7 +98,7 @@ header .navbar-light .navbar-nav .show > .nav-link {
   background-color: rgba(212, 55, 78, 0.897);
 }
 
-main {
+#conteiner-principal {
   margin: 10rem;
   padding-top: 5rem;
 }
@@ -134,5 +134,22 @@ main {
 .btn-secondary {
   background-color: #f19fc6;
   color: black;
+}
+
+.contador_carrito {
+  font-weight: bold;
+}
+
+#main-carrito {
+  margin-top: 6rem;
+}
+
+p {
+  font-weight: bold;
+}
+
+p:hover {
+  background-color: #f89dab;
+  border-radius: 1rem;
 }
 /*# sourceMappingURL=style.css.map */
