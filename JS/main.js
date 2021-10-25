@@ -82,10 +82,9 @@ function agregarAlCarrito(id) {
                                         <th scope="row"></th>
                                         <td>${productoAgregar.nombre}</td>
                                         <td id="cantidad${productoAgregar.id}">${productoAgregar.cantidad}</td>
-                                        <td id="produc${productoAgregar.id}">$${productoAgregar.precio}</td>
                                         <td><button id="sumar${productoAgregar.id}"  type="button" class="btn btn-success"><b> + </b></button>
                                         <button  id="restar${productoAgregar.id}" type="button" class="btn btn-info"><b> - </b></button></td>
-                                        <td ><button id="eliminar${productoAgregar.id}" type="button" class="btn btn-primary"><b>X</b></button></td> 
+                                        <td id="produc${productoAgregar.id}">$${productoAgregar.precio}</td>
                                            
                                     </tr>`);
 
@@ -95,7 +94,6 @@ function agregarAlCarrito(id) {
       $(`#sumar${productoAgregar.id}`).click(function(){
         agregarAlCarrito(id);
 
-        $(`#card${productoAgregar.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
         Toastify({
           text: "Producto agregado",
           className: "info",
@@ -109,7 +107,8 @@ function agregarAlCarrito(id) {
         $(`#restar${productoAgregar.id}`).click(function() {
          let restarUnidad = carrito.find((produ) => produ.id == id)
          restarUnidad.cantidad = restarUnidad.cantidad - 1;
-         if (restarUnidad.cantidad === 0){
+         
+          if (restarUnidad.cantidad === 0){
           $("tr").remove(`#tr${productoAgregar.id}`);
           carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
           actualizarProductos();
@@ -121,9 +120,7 @@ function agregarAlCarrito(id) {
           }).showToast();
 
           $(`#card${productoAgregar.id}`)
-            .fadeOut(500)
-            .fadeIn(500)
-            .css("border", "1px solid rgba(0,0,0,.125)");
+             .css("border", "1px solid rgba(0,0,0,.125)");
           $(`#boton${productoAgregar.id}`).css({
             "background-color": "#d4374f",
             color: "#fff",
@@ -131,8 +128,6 @@ function agregarAlCarrito(id) {
 
          } else {
 
-         
-         
          $(`#cantidad${restarUnidad.id}`).empty();
          $(`#produc${restarUnidad.id}`).empty();
          $(`#cantidad${restarUnidad.id}`).append(` <td id="cantidad${restarUnidad.id}">${restarUnidad.cantidad}</td>`);
@@ -150,27 +145,7 @@ function agregarAlCarrito(id) {
 
         })
 
-        //Boton que elimina todos los productos del mismo nombre
-        $(`#eliminar${productoAgregar.id}`).click(function () {
-          $("tr").remove(`#tr${productoAgregar.id}`);
-          carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
-          actualizarProductos();
-          Toastify({
-            text: "Producto eliminado",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
-          }).showToast();
-
-          $(`#card${productoAgregar.id}`)
-            .fadeOut(500)
-            .fadeIn(500)
-            .css("border", "1px solid rgba(0,0,0,.125)");
-          $(`#boton${productoAgregar.id}`).css({
-            "background-color": "#d4374f",
-            color: "#fff",
-          });
-        });
+      
       }
     });
   }
@@ -247,10 +222,9 @@ function obtenerLocalStorage() {
       <th scope="row"></th>
       <td>${el.nombre}</td>
       <td id="cantidad${el.id}">${el.cantidad}</td>
+      <td><button id="sumar${el.id}" type="button" class="btn btn-success"><b> + </b></button>
+      <button id="restar${el.id}" type="button" class="btn btn-info"><b> - </b></button></td>
       <td id="produc${el.id}">$${el.precio * el.cantidad}</td>
-      <td><button id="sumar${el.id}" type="button" class="btn btn-success"><b> + </b></burron>
-      <button id="restar${el.id}" type="button" class="btn btn-info"><b> - </b></burron></td>
-      <td ><button id="eliminar${el.id}" type="button" class="btn btn-primary"><b>X</b></button></td> 
          
              </tr>`);
 
@@ -258,7 +232,6 @@ function obtenerLocalStorage() {
       //botones que suman o restan una unidad del producto
       $(`#sumar${el.id}`).click(function(){
         agregarAlCarrito(el.id);
-        $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)")
         Toastify({
           text: "Producto agregado",
           className: "info",
@@ -309,8 +282,6 @@ function obtenerLocalStorage() {
  
          })
 
-
-
       $(`#boton${el.id}`).css({
         "background-color": "rgb(241, 159, 198)",
         color: "black",
@@ -318,26 +289,7 @@ function obtenerLocalStorage() {
 
       $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
 
-      $(`#eliminar${el.id}`).click(function () {
-        $("tr").remove(`#tr${el.id}`);
-        carrito = carrito.filter((prodE) => prodE.id != el.id);
-        actualizarProductos();
-        Toastify({
-          text: "Producto eliminado",
-          className: "info",
-          position: "center",
-          style: { background: "linear-gradient(to right, red, orange)" },
-        }).showToast();
-        $(`#card${el.id}`)
-          .fadeOut(500)
-          .fadeIn(500)
-          .css("border", "1px solid rgba(0,0,0,.125)");
-
-        $(`#boton${el.id}`).css({
-          "background-color": "#d4374f",
-          color: "#fff",
-        });
-      });
+      
     });
   }
 }
