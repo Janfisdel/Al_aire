@@ -8,13 +8,14 @@ $("#contenedor-carrito").empty();
 
 //creacion del Grid de productos
 
-function mostrarProductos() {
+function mostrarProductos(cat) {
   $("#contenedor-productos").empty();
 
   $.getJSON(URLJSON, function (respuesta, estado) {
     if (estado === "success") {
       let miStock = respuesta;
-      for (const producto of miStock) {
+      if (cat === "Todos") { 
+        for (const producto of miStock) {
         $("#contenedor-productos").append(`<div class="col"> 
                                           <div id="card${producto.id}"  class="card">
                                                <img src=${producto.img} class=" imgProducto card-img-top" alt=${producto.alt}>
@@ -27,8 +28,47 @@ function mostrarProductos() {
                                                 </div>
                                           </div>
                                       </div>`);
+                                      $(`#boton${producto.id}`).click( () => {
+                                        agregarAlCarrito(producto.id);
+                                        $(`#card${producto.id}`)
+                                          .fadeOut(500)
+                                          .fadeIn(500)
+                                          .css("border", "0.3rem solid rgb(248, 157, 171)");
+                              
+                                        $(`#boton${producto.id}`).css({
+                                          "background-color": "rgb(241, 159, 198)",
+                                          color: "black",
+                                        });
+                                        Toastify({
+                                          text: "Producto agregado",
+                                          className: "info",
+                                          position: "center",
+                                          style: {
+                                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                          },
+                                        }).showToast();
+                                      });
 
-        $(`#boton${producto.id}`).click( () => {
+      }
+    }
+      else {
+      //cambiar nombre de viarable category. ver q esa catergoria este determinada por los botones de id="categorias"
+      let category = miStock.filter(elemento =>( elemento.categoria == cat))
+      
+      for (const producto of category) {
+        $("#contenedor-productos").append(`<div class="col"> 
+                                          <div id="card${producto.id}"  class="card">
+                                               <img src=${producto.img} class=" imgProducto card-img-top" alt=${producto.alt}>
+                                               <div  class="card-body">
+                                                  <h5 class="card-title">${producto.nombre}</h5>
+                                                  <p class="card-text">${producto.descripcion}</p>
+                                                  <p>$${producto.precio}</p>
+                                                  <button id="boton${producto.id}"type="button" class="btn btn-primary">Agregar al carrito</button>
+
+                                                </div>
+                                          </div>
+                                      </div>`);
+      $(`#boton${producto.id}`).click( () => {
           agregarAlCarrito(producto.id);
           $(`#card${producto.id}`)
             .fadeOut(500)
@@ -47,14 +87,15 @@ function mostrarProductos() {
               background: "linear-gradient(to right, #00b09b, #96c93d)",
             },
           }).showToast();
-        });
+        });}
+        
       }
       obtenerLocalStorage();
     }
   });
 }
-
-mostrarProductos();
+//ESTO LO DEBEN HACER LOS BOTONES, CADA BOTON DE CATEGORIA LLEVA A UN MostrarProductos diferente
+mostrarProductos("Cerveza");
 
 //funcion para agregar productos al carrito y a la tabla de carrito
 function agregarAlCarrito(id) {
@@ -287,4 +328,8 @@ function obtenerLocalStorage() {
       
     });
   }
+}
+
+function botonesCategoria(){
+
 }
