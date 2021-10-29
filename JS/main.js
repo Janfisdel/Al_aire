@@ -33,12 +33,12 @@ function mostrarProductos(cat) {
                                         $(`#card${producto.id}`)
                                           .fadeOut(500)
                                           .fadeIn(500)
-                                          .css("border", "0.3rem solid rgb(248, 157, 171)");
+                                          //.css("border", "0.3rem solid rgb(248, 157, 171)");
                               
-                                        $(`#boton${producto.id}`).css({
-                                          "background-color": "rgb(241, 159, 198)",
-                                          color: "black",
-                                        });
+                                        // $(`#boton${producto.id}`).css({
+                                        //   "background-color": "rgb(241, 159, 198)",
+                                        //   color: "black",
+                                        // });
                                         Toastify({
                                           text: "Producto agregado",
                                           className: "info",
@@ -73,12 +73,12 @@ function mostrarProductos(cat) {
           $(`#card${producto.id}`)
             .fadeOut(500)
             .fadeIn(500)
-            .css("border", "0.3rem solid rgb(248, 157, 171)");
+            //.css("border", "0.3rem solid rgb(248, 157, 171)");
 
-          $(`#boton${producto.id}`).css({
-            "background-color": "rgb(241, 159, 198)",
-            color: "black",
-          });
+          // $(`#boton${producto.id}`).css({
+          //   "background-color": "rgb(241, 159, 198)",
+          //   color: "black",
+          // });
           Toastify({
             text: "Producto agregado",
             className: "info",
@@ -90,12 +90,14 @@ function mostrarProductos(cat) {
         });}
         
       }
-      obtenerLocalStorage();
+      
     }
-  });
+  }
+  );
+
 }
 //ESTO LO DEBEN HACER LOS BOTONES, CADA BOTON DE CATEGORIA LLEVA A UN MostrarProductos diferente
-mostrarProductos("Cerveza");
+
 
 //funcion para agregar productos al carrito y a la tabla de carrito
 function agregarAlCarrito(id) {
@@ -130,7 +132,6 @@ function agregarAlCarrito(id) {
                                     </tr>`);
 
         actualizarProductos();
-
       //botones que suman o restan una unidad del producto
       $(`#sumar${productoAgregar.id}`).click(function(){
         agregarAlCarrito(id);
@@ -247,13 +248,13 @@ function guardarLocalStorage() {
 
 //Obtencion de los elementos del carrito previamente guardados en local Storage
 function obtenerLocalStorage() {
+  mostrarProductos("Todos");
   let carritoActualizado = JSON.parse(localStorage.getItem("carritoGuardado"));
 
   if (carritoActualizado) {
     carritoActualizado.forEach((el) => {
       carrito.push(el);
       actualizarProductos();
-
       $("#contenedor-carrito").append(`<tr id="tr${el.id}">
       <th scope="row"></th>
       <td>${el.nombre}</td>
@@ -264,7 +265,9 @@ function obtenerLocalStorage() {
          
              </tr>`);
 
-    
+            
+              
+        
       //botones que suman o restan una unidad del producto
       $(`#sumar${el.id}`).click(function(){
         agregarAlCarrito(el.id);
@@ -305,6 +308,7 @@ function obtenerLocalStorage() {
           $(`#produc${restarU.id}`).empty();
           $(`#cantidad${restarU.id}`).append(` <td id="cantidad${restarU.id}">${restarU.cantidad}</td>`);
           $(`#produc${restarU.id}`).append(`<td id="produc${restarU.id}">$${restarU.cantidad * restarU.precio}</td>`);
+
       
           actualizarProductos();
          
@@ -315,21 +319,119 @@ function obtenerLocalStorage() {
             style: { background: "linear-gradient(to right, red, orange)" },
           }).showToast();
           }
- 
+          
          })
 
-      $(`#boton${el.id}`).css({
-        "background-color": "rgb(241, 159, 198)",
-        color: "black",
-      });
-
-      $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
+        
+        //  $(`#boton${el.id}`).css({
+        //   "background-color": "rgb(241, 159, 198)",
+        //   color: "black",
+        // });
+  
+        // $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
+      
 
       
     });
   }
+
+ 
 }
 
-function botonesCategoria(){
+function mostrarPorCategoria(){
+$("#categorias").css({"display":"flex",
+                      "justify-content":"center"})
+                .append(`<button id="todos" type="button" class="btn btn-secondary"><b>Todos</b></button>
+                <button id="cerveza" type="button" class="btn btn-secondary"><b>Cervezas</b></button>
+                <button id="vino" type="button" class="btn btn-secondary"><b>Vino</b></button>
+                <button id="bebidaBlanca" type="button" class="btn btn-secondary"><b>Bebidas blancas</b></button>
+                <button id="aperitivo" type="button" class="btn btn-secondary"><b>Aperitivos</b></button>
+                <button id="sinAlcohol" type="button" class="btn btn-secondary"><b>Sin alcohol</b></button>
+                <button id="otros" type="button" class="btn btn-secondary"><b>Otros</b></button>`)
 
+
+  $("#todos").click(()=> {
+    mostrarProductos("Todos")
+    $("#todos").prop("disabled", true)
+    $("#cerveza").prop("disabled",false)
+    $("#vino").prop("disabled",false)
+    $("#bebidaBlanca").prop("disabled",false)
+    $("#aperitivo").prop("disabled",false)
+    $("#sinAlcohol").prop("disabled",false)
+    $("#otros").prop("disabled",false)
+
+  })
+
+  $("#cerveza").click(()=>{
+ mostrarProductos("Cerveza")
+ $("#todos").prop("disabled", false)
+    $("#cerveza").prop("disabled",true)
+    $("#vino").prop("disabled",false)
+    $("#bebidaBlanca").prop("disabled",false)
+    $("#aperitivo").prop("disabled",false)
+    $("#sinAlcohol").prop("disabled",false)
+    $("#otros").prop("disabled",false)
+
+  })
+
+  $("#vino").click(()=>{
+    mostrarProductos("Vino")
+    $("#todos").prop("disabled", false)
+       $("#cerveza").prop("disabled",false)
+       $("#vino").prop("disabled",true)
+       $("#bebidaBlanca").prop("disabled",false)
+       $("#aperitivo").prop("disabled",false)
+       $("#sinAlcohol").prop("disabled",false)
+       $("#otros").prop("disabled",false)
+   
+     })
+
+     $("#bebidaBlanca").click(()=>{
+      mostrarProductos("Bebida blanca")
+      $("#todos").prop("disabled", false)
+         $("#cerveza").prop("disabled",false)
+         $("#vino").prop("disabled",false)
+         $("#bebidaBlanca").prop("disabled", true)
+         $("#aperitivo").prop("disabled",false)
+         $("#sinAlcohol").prop("disabled",false)
+         $("#otros").prop("disabled",false)
+     
+       })
+
+       $("#aperitivo").click(()=>{
+        mostrarProductos("Aperitivo")
+        $("#todos").prop("disabled", false)
+           $("#cerveza").prop("disabled",false)
+           $("#vino").prop("disabled",false)
+           $("#bebidaBlanca").prop("disabled", false)
+           $("#aperitivo").prop("disabled", true)
+           $("#sinAlcohol").prop("disabled",false)
+           $("#otros").prop("disabled",false)
+       })
+
+       $("#sinAlcohol").click(()=>{
+        mostrarProductos("Sin alcohol")
+        $("#todos").prop("disabled", false)
+           $("#cerveza").prop("disabled",false)
+           $("#vino").prop("disabled",false)
+           $("#bebidaBlanca").prop("disabled", false)
+           $("#aperitivo").prop("disabled", false)
+           $("#sinAlcohol").prop("disabled",true)
+           $("#otros").prop("disabled",false)
+       })
+
+       $("#otros").click(()=>{
+        mostrarProductos("Otros")
+        $("#todos").prop("disabled", false)
+           $("#cerveza").prop("disabled",false)
+           $("#vino").prop("disabled",false)
+           $("#bebidaBlanca").prop("disabled", false)
+           $("#aperitivo").prop("disabled", false)
+           $("#sinAlcohol").prop("disabled",false)
+           $("#otros").prop("disabled",true)
+       })
+  obtenerLocalStorage();
 }
+
+mostrarPorCategoria()
+

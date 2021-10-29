@@ -159,4 +159,10 @@ p:hover {
   background-color: #f89dab;
   border-radius: 1rem;
 }
+
+#contenedor-productos {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 /*# sourceMappingURL=style.css.map */
