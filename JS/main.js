@@ -28,7 +28,7 @@ function mostrarProductos() {
                                           </div>
                                       </div>`);
 
-        $(`#boton${producto.id}`).on(`click`, () => {
+        $(`#boton${producto.id}`).click( () => {
           agregarAlCarrito(producto.id);
           $(`#card${producto.id}`)
             .fadeOut(500)
@@ -112,13 +112,7 @@ function agregarAlCarrito(id) {
           $("tr").remove(`#tr${productoAgregar.id}`);
           carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
           actualizarProductos();
-          Toastify({
-            text: "Producto eliminado",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
-          }).showToast();
-
+         
           $(`#card${productoAgregar.id}`)
              .css("border", "1px solid rgba(0,0,0,.125)");
           $(`#boton${productoAgregar.id}`).css({
@@ -134,6 +128,7 @@ function agregarAlCarrito(id) {
          $(`#produc${restarUnidad.id}`).append(`<td id="produc${restarUnidad.id}">$${restarUnidad.cantidad * restarUnidad.precio}</td>`);
      
          actualizarProductos();
+         }
          Toastify({
           text: "Producto eliminado",
           className: "info",
@@ -141,7 +136,7 @@ function agregarAlCarrito(id) {
           style: { background: "linear-gradient(to right, red, orange)" },
         }).showToast();
         
-         }
+         
 
         })
 
