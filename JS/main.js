@@ -14,7 +14,7 @@ function mostrarProductos(cat) {
   $.getJSON(URLJSON, function (respuesta, estado) {
     if (estado === "success") {
       let miStock = respuesta;
-      if (cat === "Todos") {
+      if (cat === "todos") {
         for (const producto of miStock) {
           $("#contenedor-productos").append(`<div class="col"> 
                                           <div id="card${producto.id}"  class="card">
@@ -31,12 +31,7 @@ function mostrarProductos(cat) {
           $(`#boton${producto.id}`).click(() => {
             agregarAlCarrito(producto.id);
             $(`#card${producto.id}`).fadeOut(500).fadeIn(500);
-            //.css("border", "0.3rem solid rgb(248, 157, 171)");
 
-            // $(`#boton${producto.id}`).css({
-            //   "background-color": "rgb(241, 159, 198)",
-            //   color: "black",
-            // });
             Toastify({
               text: "Producto agregado",
               className: "info",
@@ -48,7 +43,6 @@ function mostrarProductos(cat) {
           });
         }
       } else {
-        //cambiar nombre de viarable category. ver q esa catergoria este determinada por los botones de id="categorias"
         let categoria = miStock.filter((elemento) => elemento.categoria == cat);
 
         for (const producto of categoria) {
@@ -67,12 +61,7 @@ function mostrarProductos(cat) {
           $(`#boton${producto.id}`).click(() => {
             agregarAlCarrito(producto.id);
             $(`#card${producto.id}`).fadeOut(500).fadeIn(500);
-            //.css("border", "0.3rem solid rgb(248, 157, 171)");
 
-            // $(`#boton${producto.id}`).css({
-            //   "background-color": "rgb(241, 159, 198)",
-            //   color: "black",
-            // });
             Toastify({
               text: "Producto agregado",
               className: "info",
@@ -88,92 +77,56 @@ function mostrarProductos(cat) {
   });
 }
 
-
 //Al tocar los botones de las categorias  cambia la tabla de productos mostrando solo la categoria elegida
 function mostrarPorCategoria() {
   $("#categorias").css({ display: "flex", "justify-content": "center" })
-    .append(`<button id="todos" type="button" class="btn btn-secondary"><b>Todos</b></button>
-                <button id="cerveza" type="button" class="btn btn-secondary"><b>Cervezas</b></button>
-                <button id="vino" type="button" class="btn btn-secondary"><b>Vino</b></button>
-                <button id="bebidaBlanca" type="button" class="btn btn-secondary"><b>Bebidas blancas</b></button>
-                <button id="aperitivo" type="button" class="btn btn-secondary"><b>Aperitivos</b></button>
-                <button id="sinAlcohol" type="button" class="btn btn-secondary"><b>Sin alcohol</b></button>
-                <button id="otros" type="button" class="btn btn-secondary"><b>Otros</b></button>`);
+    .append(`<button id="todos" type="button" class="btn btn-secondary botonCategoria"><b>Todos</b></button>
+                <button id="cerveza" type="button" class="btn btn-secondary botonCategoria"><b>Cervezas</b></button>
+                <button id="vino" type="button" class="btn btn-secondary botonCategoria"><b>Vino</b></button>
+                <button id="bebidaBlanca" type="button" class="btn btn-secondary botonCategoria"><b>Bebidas blancas</b></button>
+                <button id="aperitivo" type="button" class="btn btn-secondary botonCategoria"><b>Aperitivos</b></button>
+                <button id="sinAlcohol" type="button" class="btn btn-secondary botonCategoria"><b>Sin alcohol</b></button>
+                <button id="otros" type="button" class="btn btn-secondary botonCategoria"><b>Otros</b></button>`);
 
   $("#todos").click(() => {
-    mostrarProductos("Todos");
+    mostrarProductos("todos");
+    $(".botonCategoria").prop("disabled", false);
     $("#todos").prop("disabled", true);
-    $("#cerveza").prop("disabled", false);
-    $("#vino").prop("disabled", false);
-    $("#bebidaBlanca").prop("disabled", false);
-    $("#aperitivo").prop("disabled", false);
-    $("#sinAlcohol").prop("disabled", false);
-    $("#otros").prop("disabled", false);
   });
 
   $("#cerveza").click(() => {
-    mostrarProductos("Cerveza");
-    $("#todos").prop("disabled", false);
+    mostrarProductos("cerveza");
+    $(".botonCategoria").prop("disabled", false);
     $("#cerveza").prop("disabled", true);
-    $("#vino").prop("disabled", false);
-    $("#bebidaBlanca").prop("disabled", false);
-    $("#aperitivo").prop("disabled", false);
-    $("#sinAlcohol").prop("disabled", false);
-    $("#otros").prop("disabled", false);
   });
 
   $("#vino").click(() => {
-    mostrarProductos("Vino");
-    $("#todos").prop("disabled", false);
-    $("#cerveza").prop("disabled", false);
+    mostrarProductos("vino");
+    $(".botonCategoria").prop("disabled", false);
     $("#vino").prop("disabled", true);
-    $("#bebidaBlanca").prop("disabled", false);
-    $("#aperitivo").prop("disabled", false);
-    $("#sinAlcohol").prop("disabled", false);
-    $("#otros").prop("disabled", false);
   });
 
   $("#bebidaBlanca").click(() => {
-    mostrarProductos("Bebida blanca");
-    $("#todos").prop("disabled", false);
-    $("#cerveza").prop("disabled", false);
-    $("#vino").prop("disabled", false);
+    mostrarProductos("bebida blanca");
+    $(".botonCategoria").prop("disabled", false);
     $("#bebidaBlanca").prop("disabled", true);
-    $("#aperitivo").prop("disabled", false);
-    $("#sinAlcohol").prop("disabled", false);
-    $("#otros").prop("disabled", false);
   });
 
   $("#aperitivo").click(() => {
-    mostrarProductos("Aperitivo");
-    $("#todos").prop("disabled", false);
-    $("#cerveza").prop("disabled", false);
-    $("#vino").prop("disabled", false);
-    $("#bebidaBlanca").prop("disabled", false);
+    mostrarProductos("aperitivo");
+    $(".botonCategoria").prop("disabled", false);
     $("#aperitivo").prop("disabled", true);
-    $("#sinAlcohol").prop("disabled", false);
-    $("#otros").prop("disabled", false);
   });
 
   $("#sinAlcohol").click(() => {
-    mostrarProductos("Sin alcohol");
-    $("#todos").prop("disabled", false);
-    $("#cerveza").prop("disabled", false);
-    $("#vino").prop("disabled", false);
-    $("#bebidaBlanca").prop("disabled", false);
-    $("#aperitivo").prop("disabled", false);
+    mostrarProductos("sin alcohol");
+    $(".botonCategoria").prop("disabled", false);
     $("#sinAlcohol").prop("disabled", true);
-    $("#otros").prop("disabled", false);
   });
 
   $("#otros").click(() => {
-    mostrarProductos("Otros");
-    $("#todos").prop("disabled", false);
-    $("#cerveza").prop("disabled", false);
-    $("#vino").prop("disabled", false);
-    $("#bebidaBlanca").prop("disabled", false);
-    $("#aperitivo").prop("disabled", false);
-    $("#sinAlcohol").prop("disabled", false);
+    mostrarProductos("otros");
+    $(".botonCategoria").prop("disabled", false);
     $("#otros").prop("disabled", true);
   });
   obtenerLocalStorage();
@@ -240,15 +193,6 @@ function agregarAlCarrito(id) {
             $("tr").remove(`#tr${productoAgregar.id}`);
             carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
             actualizarProductos();
-
-            // $(`#card${productoAgregar.id}`).css(
-            //   "border",
-            //   "1px solid rgba(0,0,0,.125)"
-            // );
-            // $(`#boton${productoAgregar.id}`).css({
-            //   "background-color": "#d4374f",
-            //   color: "#fff",
-            // });
           } else {
             $(`#cantidad${restarUnidad.id}`).empty();
             $(`#produc${restarUnidad.id}`).empty();
@@ -282,6 +226,7 @@ function actualizarProductos() {
   cantidad = 0;
   $("#vaciar").empty();
   $("#total").empty();
+  $("#finalizarCompra").empty();
 
   if (carrito.length === 0) {
     $("#vaciar").append(`<b>CARRITO VACIO</b>`);
@@ -295,9 +240,13 @@ function actualizarProductos() {
     $("#vaciar").append(
       `<button id="vaciarCarrito" type="button" class="btn btn-secondary"><b>Vaciar carrito</b></button>`
     );
+    $("#finalizarCompra").append(
+      `<button id="botonFinalizar" type="button" class="btn btn-secondary"><b>Finalizar compra</b></button>`
+    );
     $(".contador_carrito").text(
       "Carrito (" + carrito.reduce((acc, el) => acc + el.cantidad, 0) + ")"
     );
+
     for (let i = 0; i < carrito.length; i++) {
       precio += carrito[i].precio * carrito[i].cantidad;
       cantidad += carrito[i].cantidad;
@@ -309,8 +258,6 @@ function actualizarProductos() {
       carrito = [];
 
       $("#contenedor-carrito").empty();
-      $(`.card`).css("border", "1px solid rgba(0,0,0,.125)");
-      $(`.btn-primary`).css({ "background-color": "#d4374f", color: "#fff" });
       actualizarProductos();
 
       Toastify({
@@ -319,6 +266,13 @@ function actualizarProductos() {
         position: "center",
         style: { background: "linear-gradient(to right, blue, grey)" },
       }).showToast();
+    });
+
+    $("#botonFinalizar").click(() => {
+      $(`#titulo_carrito`).empty();
+      $(`#titulo_carrito`).append(`<h2>FINALIZAR COMPRA</h2>`);
+      $(`.table-carrito`).hide();
+      formularioDeCompra();
     });
   }
   guardarLocalStorage();
@@ -331,7 +285,8 @@ function guardarLocalStorage() {
 
 //Obtencion de los elementos del carrito previamente guardados en local Storage
 function obtenerLocalStorage() {
-  mostrarProductos("Todos");
+  mostrarProductos("todos");
+  $("#todos").prop("disabled", true);
   let carritoActualizado = JSON.parse(localStorage.getItem("carritoGuardado"));
 
   if (carritoActualizado) {
@@ -381,12 +336,6 @@ function obtenerLocalStorage() {
             position: "center",
             style: { background: "linear-gradient(to right, red, orange)" },
           }).showToast();
-
-          // $(`#card${el.id}`).css("border", "1px solid rgba(0,0,0,.125)");
-          // $(`#boton${el.id}`).css({
-          //   "background-color": "#d4374f",
-          //   color: "#fff",
-          // });
         } else {
           $(`#cantidad${restarU.id}`).empty();
           $(`#produc${restarU.id}`).empty();
@@ -409,17 +358,91 @@ function obtenerLocalStorage() {
           }).showToast();
         }
       });
-
-      //  $(`#boton${el.id}`).css({
-      //   "background-color": "rgb(241, 159, 198)",
-      //   color: "black",
-      // });
-
-      // $(`#card${el.id}`).css("border", "0.3rem solid rgb(248, 157, 171)");
     });
   }
 }
 
-
-
 mostrarPorCategoria();
+
+function formularioDeCompra() {
+  $(`#formulario`)
+    .append(`<form class="form"><button id="botonCerrar" class="btn btn-primary" >X</button>
+                                             
+                                                 <div class="row">
+                                                     <input placeholder="Nombre completo" id="nombre" type="text" class="validate">
+                                                  </div>
+
+                                                  <div class="row">
+                                                          <input  id="direccion" type="text" class="validate" placeholder="Direccion">
+                                                  </div>
+                                                  
+                                                  <div class="row">
+                                                          <input id="localidad" type="text" class="validate" placeholder="Localidad">
+                                                  </div>
+                                                  
+                                                  <div class="row">
+                                                          <input id="email" type="email" class="validate" placeholder="Email">
+                                                  </div>
+                                               
+                                                  <div><b>Valor total de su compra es $${precio}</b></div>
+                                                  
+                                                  <input class="btn btn-primary" type="submit" id="submit" value="SUBMIT">
+                                            
+                                                                           
+                                             
+                                            
+
+               </form>`);
+
+  
+ $(`#submit`).click(function (e) {
+                e.preventDefault();
+
+  if ($(`#nombre`).val() !=0 ){
+    if ($(`#direccion`).val() !=0 ){
+      if ($(`#localidad`).val() !=0 ){
+        if ($(`#email`).val() !=0 ){
+          Toastify({
+            text: "Compra finalizada",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
+
+          carrito = [];
+          $(`#contenedor-carrito`).empty()
+          actualizarProductos()
+          
+
+          $(`#botonCerrar`).trigger("click")
+        }
+      }
+    }
+  } else {
+    let inputs = $('#formulario').find('input')
+   
+
+    inputs.each(function(index,elemento) {
+        if($(elemento).val().length <= 0){
+            $(elemento).css("border", "solid 2px #FA5858")
+        }else{
+            $(elemento).css('border', 'none')
+        }
+    })
+  }
+              
+  
+  
+              })
+
+  
+
+  
+
+  $(`#botonCerrar`).click(() => {
+    $(`#formulario`).hide();
+    $(`#titulo_carrito`).empty();
+    $(`#titulo_carrito`).append(`<h2>Carrito de compra</h2>`);
+    $(`.table-carrito`).show();
+  });
+}

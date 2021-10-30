@@ -113,8 +113,12 @@ header .navbar-light .navbar-nav .show > .nav-link {
   color: #f06c80;
 }
 
+.card {
+  height: 28rem;
+}
+
 .imgProducto {
-  height: 20rem;
+  height: 15rem;
 }
 
 .table-carrito {
@@ -164,5 +168,18 @@ p:hover {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.form {
+  margin: 7rem;
+  padding: 1rem;
+  background-color: lightpink;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+input {
+  margin-bottom: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

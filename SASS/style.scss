@@ -78,7 +78,7 @@ header {
   font-size: 1.5rem;
 
   &:hover {
-    background-color: rgba(212, 55, 78, 0.897);;
+    background-color: rgba(212, 55, 78, 0.897);
     font-size: 1.5rem;
     box-shadow: 0 8px 16px 0;
     color: black;
@@ -86,68 +86,59 @@ header {
   }
 
   a {
-    color:black;
-  } 
+    color: black;
+  }
 
   &:focus {
     background-color: rgba(212, 55, 78, 0.897);
-    
   }
 }
-#conteiner-principal{
+#conteiner-principal {
   margin: 10rem;
   padding-top: 5rem;
 }
 
-
 .titulo_productos {
-    text-transform: uppercase;
-    text-align: center;
- 
-    h2 {
-        font-size: 5rem;
-        color:rgb(240, 108, 128);
-    }
+  text-transform: uppercase;
+  text-align: center;
+
+  h2 {
+    font-size: 5rem;
+    color: rgb(240, 108, 128);
+  }
 }
 
+.card {
+  height: 28rem;
+}
 .imgProducto {
-  height: 20rem;
-  
+  height: 15rem;
 }
 
-
-
-
-.table-carrito{
-    padding:1rem;
-   
+.table-carrito {
+  padding: 1rem;
 }
-
 
 .btn-info {
   border-radius: 1rem;
-  border:  1px solid black;
-  
+  border: 1px solid black;
 }
 
 .btn-success {
   border-radius: 1rem;
-  border:  1px solid black;
+  border: 1px solid black;
 }
 
-.btn-secondary{
+.btn-secondary {
   background-color: rgb(241, 159, 198);
   font-weight: bold;
-  margin:1rem;
+  margin: 1rem;
   color: black;
   &:hover {
     color: rgb(241, 159, 198);
     background-color: black;
-
   }
-
 }
-
 
 .contador_carrito {
   font-weight: bold;
@@ -157,14 +148,31 @@ header {
   margin-top: 6rem;
 }
 
-p{
+p {
   font-weight: bold;
-  &:hover{
+  &:hover {
     background-color: rgb(248, 157, 171);
     border-radius: 1rem;
   }
 }
 
-#contenedor-productos{
-  justify-content:center;
+#contenedor-productos {
+  justify-content: center;
 }
+
+
+.form {
+  margin: 7rem;
+  padding: 1rem;
+  background-color: rgb(255, 182, 193);
+  justify-content: center;
+}
+
+
+input {
+  margin-bottom: 1rem;
+ 
+}
+
+
+
