@@ -133,7 +133,14 @@ header .navbar-light .navbar-nav .show > .nav-link {
 
 .btn-secondary {
   background-color: #f19fc6;
+  font-weight: bold;
+  margin: 1rem;
   color: black;
+}
+
+.btn-secondary:hover {
+  color: #f19fc6;
+  background-color: black;
 }
 
 .contador_carrito {
@@ -151,5 +158,11 @@ p {
 p:hover {
   background-color: #f89dab;
   border-radius: 1rem;
+}
+
+#contenedor-productos {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=style.css.map */

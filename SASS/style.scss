@@ -137,9 +137,17 @@ header {
 
 .btn-secondary{
   background-color: rgb(241, 159, 198);
+  font-weight: bold;
+  margin:1rem;
   color: black;
+  &:hover {
+    color: rgb(241, 159, 198);
+    background-color: black;
+
+  }
 
 }
+
 
 .contador_carrito {
   font-weight: bold;
@@ -157,3 +165,6 @@ p{
   }
 }
 
+#contenedor-productos{
+  justify-content:center;
+}
