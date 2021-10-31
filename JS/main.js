@@ -1,3 +1,8 @@
+$( document ).ready(function() 
+{
+   console.log( "El DOM esta listo" );
+});
+
 let carrito = [];
 let precio = 0;
 
@@ -442,7 +447,7 @@ function formularioDeCompra() {
   $(`#botonCerrar`).click(() => {
     $(`#formulario`).hide();
     $(`#titulo_carrito`).empty();
-    $(`#titulo_carrito`).append(`<h2>Carrito de compra</h2>`);
+    $(`#titulo_carrito`).append(`<h2>Carrito de compras</h2>`);
     $(`.table-carrito`).show();
   });
 }
