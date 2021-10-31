@@ -406,7 +406,7 @@ function formularioDeCompra() {
             text: "Compra finalizada",
             className: "info",
             position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
+            style: { background: "linear-gradient(to right,#FFC300, #FF5733, #C70039, #900C3F)" },
           }).showToast();
 
           carrito = [];
@@ -418,8 +418,8 @@ function formularioDeCompra() {
         }
       }
     }
-  } else {
-    let inputs = $('#formulario').find('input')
+  } 
+    let inputs = $('#formulario').find(':input')
    
 
     inputs.each(function(index,elemento) {
@@ -429,7 +429,7 @@ function formularioDeCompra() {
             $(elemento).css('border', 'none')
         }
     })
-  }
+  
               
   
   
