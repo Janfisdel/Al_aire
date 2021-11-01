@@ -86,13 +86,13 @@ function mostrarProductos(cat) {
 function mostrarPorCategoria() {
   //Botones de cada categoria
   $("#categorias").css({ display: "flex", "justify-content": "center" })
-    .append(`<button id="todos" type="button" class="btn btn-secondary botonCategoria"><b>Todos</b></button>
-                <button id="cerveza" type="button" class="btn btn-secondary botonCategoria"><b>Cervezas</b></button>
-                <button id="vino" type="button" class="btn btn-secondary botonCategoria"><b>Vino</b></button>
-                <button id="bebidaBlanca" type="button" class="btn btn-secondary botonCategoria"><b>Bebidas blancas</b></button>
-                <button id="aperitivo" type="button" class="btn btn-secondary botonCategoria"><b>Aperitivos</b></button>
-                <button id="sinAlcohol" type="button" class="btn btn-secondary botonCategoria"><b>Sin alcohol</b></button>
-                <button id="otros" type="button" class="btn btn-secondary botonCategoria"><b>Otros</b></button>`);
+                  .append(`<button id="todos" type="button" class="btn btn-secondary botonCategoria"><b>Todos</b></button>
+                           <button id="cerveza" type="button" class="btn btn-secondary botonCategoria"><b>Cervezas</b></button>
+                           <button id="vino" type="button" class="btn btn-secondary botonCategoria"><b>Vino</b></button>
+                           <button id="bebidaBlanca" type="button" class="btn btn-secondary botonCategoria"><b>Bebidas blancas</b></button>
+                           <button id="aperitivo" type="button" class="btn btn-secondary botonCategoria"><b>Aperitivos</b></button>
+                           <button id="sinAlcohol" type="button" class="btn btn-secondary botonCategoria"><b>Sin alcohol</b></button>
+                           <button id="otros" type="button" class="btn btn-secondary botonCategoria"><b>Otros</b></button>`);
 
   $("#todos").click(() => {
     mostrarProductos("todos");
@@ -265,9 +265,9 @@ function actualizarProductos() {
     });
 
     $("#botonFinalizar").click(() => {
-      $(`#titulo_carrito`).empty();
-      $(`#titulo_carrito`).append(`<h2>FINALIZAR COMPRA</h2>`);
-      $(`.table-carrito`).hide();
+      $("#titulo_carrito").empty();
+      $("#titulo_carrito").append(`<h2>FINALIZAR COMPRA</h2>`);
+      $(".table-carrito").hide();
       formularioDeCompra();
     });
   }
@@ -352,7 +352,7 @@ function obtenerLocalStorage() {
 mostrarPorCategoria();
 
 function formularioDeCompra() {
-  $(`#formulario`).append(`<form class="form"><button id="botonCerrar" class="btn btn-primary" >X</button>
+  $("#formulario").append(`<form class="form"><button id="botonCerrar" class="btn btn-primary" >X</button>
                                               <div class="row">
                                                   <input placeholder="Nombre completo" id="nombre" type="text" class="validate">
                                               </div>
@@ -372,11 +372,11 @@ function formularioDeCompra() {
                                        </form>`);
 
 //Funcionalidad de boton de "Finalizar compra" en el formulario
- $(`#submit`).click(function (e) {
+ $("#submit").click(function (e) {
       e.preventDefault(); 
       
       //Si se completaron todos los campos del formulario la compra finaliza y se vacia el carrito y la tabla del carrito
-      if (($(`#nombre`).val() !="")  && ($(`#direccion`).val() !="" ) && ($(`#localidad`).val() !="" )&& ($(`#email`).val() !="" )){
+      if (($("#nombre").val() !="")  && ($("#direccion").val() !="" ) && ($("#localidad").val() !="" )&& ($("#email").val() !="" )){
           Toastify({
             text: "Compra finalizada",
             className: "info",
@@ -385,12 +385,12 @@ function formularioDeCompra() {
           }).showToast();
 
           carrito = [];
-          $(`#contenedor-carrito`).empty()
-          $(`#botonCerrar`).trigger("click")
+          $("#contenedor-carrito").empty()
+          $("#botonCerrar").trigger("click")
          actualizarProductos()
         } else {
           //Si hay campos del formulario incompletos si indican los que faltan y no finaliza la compra
-             let inputs = $('#formulario').find(':input')
+             let inputs = $("#formulario").find(':input')
              inputs.each(function(index,elemento) {
                 if($(elemento).val().length <= 0){
                   $(elemento).css("border", "solid 3px #FA5858")
@@ -402,10 +402,10 @@ function formularioDeCompra() {
     })
 
     //Funcionalidad del "boton cerrar" del formulario. Se vuelve a la tabla del carrito 
-   $(`#botonCerrar`).click(() => {
-    $(`#formulario`).hide();
-    $(`#titulo_carrito`).empty();
-    $(`#titulo_carrito`).append(`<h2>Carrito de compras</h2>`);
-    $(`.table-carrito`).show();
+   $("#botonCerrar").click(() => {
+    $("#formulario").hide();
+    $("#titulo_carrito").empty();
+    $("#titulo_carrito").append(`<h2>Carrito de compras</h2>`);
+    $(".table-carrito").show();
   });
 }
