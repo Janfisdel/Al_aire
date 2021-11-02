@@ -180,7 +180,6 @@ function agregarAlCarrito(id) {
         $(`#eliminar${productoAgregar.id}`).click(function(){
           carrito = carrito.filter(productoEliminar => productoEliminar.id != productoAgregar.id)
           $("tr").remove(`#tr${productoAgregar.id}`);
-          carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
           actualizarProductos();
 
           Toastify({
@@ -210,12 +209,10 @@ function agregarAlCarrito(id) {
           let restarUnidad = carrito.find((produ) => produ.id == id);
           restarUnidad.cantidad = restarUnidad.cantidad - 1;
 
-          //si no quedan mas de ese producto en el carrito tambien elimina esa fila de la tabla
+          //si no quedan mas de ese producto cumple la misma funcion que el "boton eliminar"
           if (restarUnidad.cantidad === 0) {
-            $("tr").remove(`#tr${productoAgregar.id}`);
-            carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
-            actualizarProductos();
-            
+            $(`#eliminar${productoAgregar.id}`).trigger("click")
+
           } else {
             //Si todavia quedan unidades de ese producto en el carrito solo se disminuye la cantidad en el carrito y en la tabla
             $(`#cantidad${restarUnidad.id}`).empty();
@@ -223,15 +220,17 @@ function agregarAlCarrito(id) {
             $(`#cantidad${restarUnidad.id}`).append(` <td id="cantidad${restarUnidad.id}">${restarUnidad.cantidad}</td>`);
             $(`#produc${restarUnidad.id}`).append(`<td id="produc${restarUnidad.id}">$${restarUnidad.cantidad * restarUnidad.precio}</td>`);
 
-            actualizarProductos();
-          }
-
-          Toastify({
+            actualizarProductos(); 
+            
+            Toastify({
             text: "Producto eliminado",
             className: "info",
             position: "center",
             style: { background: "linear-gradient(to right, red, orange)" },
           }).showToast();
+          }
+
+         
         });
       }
     });
@@ -306,24 +305,24 @@ function obtenerLocalStorage() {
 
   if (carritoActualizado) {
     //Si hay productos en el carrito guardado en localStorage se agregan a la tabla del carrito y las cantidades al HEADER
-    carritoActualizado.forEach((el) => {
-      carrito.push(el);
+    carritoActualizado.forEach((productoStorage) => {
+      carrito.push(productoStorage);
       actualizarProductos();
-      $("#contenedor-carrito").append(`<tr id="tr${el.id}">
+      $("#contenedor-carrito").append(`<tr id="tr${productoStorage.id}">
                                           <th scope="row"></th>
-                                          <td>${el.nombre}</td>
-                                          <td id="cantidad${el.id}">${el.cantidad}</td>
-                                          <td><button id="sumar${el.id}" type="button" class="btn btn-success"><b> + </b></button>
-                                              <button id="restar${el.id}" type="button" class="btn btn-info"><b> - </b></button></td>
-                                          <td id="produc${el.id}">$${el.precio * el.cantidad}</td>
-                                          <td id="eliminar${el.id}"><img class="trash" type="button"src="IMG/trash.svg"></td>
+                                          <td>${productoStorage.nombre}</td>
+                                          <td id="cantidad${productoStorage.id}">${productoStorage.cantidad}</td>
+                                          <td><button id="sumar${productoStorage.id}" type="button" class="btn btn-success"><b> + </b></button>
+                                              <button id="restar${productoStorage.id}" type="button" class="btn btn-info"><b> - </b></button></td>
+                                          <td id="produc${productoStorage.id}">$${productoStorage.precio * productoStorage.cantidad}</td>
+                                          <td id="eliminar${productoStorage.id}"><img class="trash" type="button"src="IMG/trash.svg"></td>
                                         </tr>`);
 
 
       //"boton eliminar" elimina todas las unidades del producto del carrito
-        $(`#eliminar${el.id}`).click(function(){
-          carrito = carrito.filter(productoEliminar => productoEliminar.id != el.id)
-          $("tr").remove(`#tr${el.id}`);
+        $(`#eliminar${productoStorage.id}`).click(function(){
+          carrito = carrito.filter(productoEliminar => productoEliminar.id != productoStorage.id)
+          $("tr").remove(`#tr${productoStorage.id}`);
           actualizarProductos()
 
           Toastify({
@@ -336,8 +335,8 @@ function obtenerLocalStorage() {
         })
 
       //boton que suma una unidad del producto al carrito
-      $(`#sumar${el.id}`).click(function () {
-        agregarAlCarrito(el.id);
+      $(`#sumar${productoStorage.id}`).click(function () {
+        agregarAlCarrito(productoStorage.id);
         Toastify({
           text: "Producto agregado",
           className: "info",
@@ -349,27 +348,20 @@ function obtenerLocalStorage() {
       });
 
       //boton que resta una unidad del producto al carrito
-      $(`#restar${el.id}`).click(function () {
-        let restarU = carrito.find((produ) => produ.id == el.id);
-        restarU.cantidad = restarU.cantidad - 1;
-        //si no quedan mas de ese producto en el carrito elimina esa fila de la tabla
-        if (restarU.cantidad === 0) {
-          $("tr").remove(`#tr${el.id}`);
-          carrito = carrito.filter((prodE) => prodE.id != el.id);
-          actualizarProductos();
+      $(`#restar${productoStorage.id}`).click(function () {
+        let restarUno = carrito.find((produ) => produ.id == productoStorage.id);
+        restarUno.cantidad = restarUno.cantidad - 1;
 
-          Toastify({
-            text: "Producto eliminado",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
-          }).showToast();
+        //si no quedan mas de ese producto cumple la misma funcion que el "boton eliminar"
+        if (restarUno.cantidad === 0) {
+          $(`#eliminar${productoStorage.id}`).trigger("click")
+          
         } else {
            //Si todavia quedan unidades de ese producto en el carrito solo se disminuye la cantidad en el carrito y en la tabla
-          $(`#cantidad${restarU.id}`).empty();
-          $(`#produc${restarU.id}`).empty();
-          $(`#cantidad${restarU.id}`).append(` <td id="cantidad${restarU.id}">${restarU.cantidad}</td>`);
-          $(`#produc${restarU.id}`).append(`<td id="produc${restarU.id}">$${restarU.cantidad * restarU.precio}</td>`);
+          $(`#cantidad${restarUno.id}`).empty();
+          $(`#produc${restarUno.id}`).empty();
+          $(`#cantidad${restarUno.id}`).append(` <td id="cantidad${restarUno.id}">${restarUno.cantidad}</td>`);
+          $(`#produc${restarUno.id}`).append(`<td id="produc${restarUno.id}">$${restarUno.cantidad * restarUno.precio}</td>`);
 
           actualizarProductos();
 
@@ -380,13 +372,13 @@ function obtenerLocalStorage() {
             style: { background: "linear-gradient(to right, red, orange)" },
           }).showToast();
         }
+        
       });
     });
   }
 }
 
-mostrarPorCategoria();
-
+//funcion que inicia el formulario para finalizar la compra
 function formularioDeCompra() {
   $("#formulario").append(`<form class="form"><button id="botonCerrar" class="btn btn-primary" >X</button>
                                               <div class="row">
@@ -445,3 +437,9 @@ function formularioDeCompra() {
     $(".table-carrito").show();
   });
 }
+
+
+
+
+//Llamada de funcion visualizar el grid de productos
+mostrarPorCategoria();
