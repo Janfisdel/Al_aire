@@ -85,7 +85,7 @@ function mostrarProductos(cat) {
 //Al tocar los botones de las categorias  cambia la tabla de productos mostrando solo la categoria elegida
 function mostrarPorCategoria() {
   //Botones de cada categoria
-  $("#categorias").css({ display: "flex", "justify-content": "center" })
+  $("#categorias").css({ display: "flex", "justify-content": "center", "flex-wrap":"wrap" })
                   .append(`<button id="todos" type="button" class="btn btn-secondary botonCategoria"><b>Todos</b></button>
                            <button id="cerveza" type="button" class="btn btn-secondary botonCategoria"><b>Cervezas</b></button>
                            <button id="vino" type="button" class="btn btn-secondary botonCategoria"><b>Vino</b></button>
@@ -158,6 +158,8 @@ function agregarAlCarrito(id) {
         let stock = respuesta;
         let productoAgregar = stock.find((producto) => producto.id == id);
 
+        productoAgregar.cantidad = 1;
+
         carrito.push(productoAgregar);
       
         //Se agrega en la tabla de productos la fila del nuevo producto ingresado
@@ -168,9 +170,26 @@ function agregarAlCarrito(id) {
                                            <td><button id="sumar${productoAgregar.id}"  type="button" class="btn btn-success"><b> + </b></button>
                                                <button  id="restar${productoAgregar.id}" type="button" class="btn btn-info"><b> - </b></button></td>
                                            <td id="produc${productoAgregar.id}">$${productoAgregar.precio}</td>
+                                           <td id="eliminar${productoAgregar.id}"><img type="button" class="trash" src="IMG/trash.svg"></td>
                                         </tr>`);
 
         actualizarProductos();
+
+
+        //"boton eliminar" elimina todas las unidades del producto del carrito
+        $(`#eliminar${productoAgregar.id}`).click(function(){
+          carrito = carrito.filter(productoEliminar => productoEliminar.id != productoAgregar.id)
+          $("tr").remove(`#tr${productoAgregar.id}`);
+          carrito = carrito.filter((prodE) => prodE.id != productoAgregar.id);
+          actualizarProductos();
+
+          Toastify({
+            text: "Producto eliminado",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
+        })
 
         //boton que suma una unidad del producto al carrito
         $(`#sumar${productoAgregar.id}`).click(function () {
@@ -297,7 +316,24 @@ function obtenerLocalStorage() {
                                           <td><button id="sumar${el.id}" type="button" class="btn btn-success"><b> + </b></button>
                                               <button id="restar${el.id}" type="button" class="btn btn-info"><b> - </b></button></td>
                                           <td id="produc${el.id}">$${el.precio * el.cantidad}</td>
+                                          <td id="eliminar${el.id}"><img class="trash" type="button"src="IMG/trash.svg"></td>
                                         </tr>`);
+
+
+      //"boton eliminar" elimina todas las unidades del producto del carrito
+        $(`#eliminar${el.id}`).click(function(){
+          carrito = carrito.filter(productoEliminar => productoEliminar.id != el.id)
+          $("tr").remove(`#tr${el.id}`);
+          actualizarProductos()
+
+          Toastify({
+            text: "Producto eliminado",
+            className: "info",
+            position: "center",
+            style: { background: "linear-gradient(to right, red, orange)" },
+          }).showToast();
+         
+        })
 
       //boton que suma una unidad del producto al carrito
       $(`#sumar${el.id}`).click(function () {
@@ -357,7 +393,7 @@ function formularioDeCompra() {
                                                   <input placeholder="Nombre completo" id="nombre" type="text" class="validate">
                                               </div>
                                               <div class="row">
-                                                  <input  id="direccion" type="text" class="validate" placeholder="Direccion">
+                                                  <input  id="dirección" type="text" class="validate" placeholder="Direccion">
                                               </div>
                                               <div class="row">
                                                   <input id="localidad" type="text" class="validate" placeholder="Localidad">
@@ -378,7 +414,7 @@ function formularioDeCompra() {
       //Si se completaron todos los campos del formulario la compra finaliza y se vacia el carrito y la tabla del carrito
       if (($("#nombre").val() !="")  && ($("#direccion").val() !="" ) && ($("#localidad").val() !="" )&& ($("#email").val() !="" )){
           Toastify({
-            text: "Compra finalizada",
+            text: "COMPRA REALIZADA CON EXITO",
             className: "info",
             position: "center",
             style: { background: "linear-gradient(to right,#FFC300, #FF5733, #C70039, #900C3F)" },
