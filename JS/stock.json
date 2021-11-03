@@ -100,6 +100,17 @@
 
   {
     "id": 10,
+    "nombre": "Jugo de naranja",
+    "alt": "jugo de naranja",
+    "categoria": "sin alcohol",
+    "descripcion": "Jugo de naranja natural por 1L",
+    "precio": 120,
+    "img": "IMG/products/orangeJuice.jpg",
+    "cantidad": 1
+  },
+
+  {
+    "id": 11,
     "nombre": "Agua",
     "alt": "agua",
     "categoria": "sin alcohol",
@@ -110,7 +121,7 @@
   },
 
   {
-    "id": 11,
+    "id": 12,
     "nombre": "Hielo",
     "alt": "hielo",
     "categoria": "otros",
