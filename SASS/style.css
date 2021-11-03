@@ -122,6 +122,8 @@ header .navbar-light .navbar-nav .show > .nav-link {
 }
 
 .table-carrito {
+  margin-left: 5rem;
+  margin-right: 5rem;
   padding: 1rem;
 }
 
@@ -186,5 +188,10 @@ input {
 .trash {
   width: 2rem;
   height: 2rem;
+}
+
+.cantProducto {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

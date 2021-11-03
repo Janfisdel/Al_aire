@@ -1,6 +1,4 @@
-$( document ).ready(function() {
-   console.log( "El DOM esta listo" );
-});
+//JS para ver los productos de la tienda y el carrito de compras
 
 let carrito = [];
 let precio = 0;
@@ -21,7 +19,7 @@ function mostrarProductos(cat) {
       if (cat === "todos") {
         //grid de todos los productos
         for (const producto of miStock) {
-          $("#contenedor-productos").append(`<div class="col"> 
+          $("#contenedor-productos").append(`<div class="col">
                                                  <div id="card${producto.id}"  class="card">
                                                      <img src=${producto.img} class=" imgProducto card-img-top" alt=${producto.alt}>
                                                      <div  class="card-body">
@@ -51,7 +49,7 @@ function mostrarProductos(cat) {
         //Grid segun cada categoria
         let categoria = miStock.filter((elemento) => elemento.categoria == cat);
         for (const producto of categoria) {
-          $("#contenedor-productos").append(`<div class="col"> 
+          $("#contenedor-productos").append(`<div class="col">
                                                <div id="card${producto.id}"  class="card">
                                                   <img src=${producto.img} class=" imgProducto card-img-top" alt=${producto.alt}>
                                                   <div  class="card-body">
@@ -146,9 +144,9 @@ function agregarAlCarrito(id) {
     //Condicion cuando el producto ya esta en el carrito, no se agrega un nuevo objeto, solo se suma la cantidad
     repetido.cantidad = repetido.cantidad + 1;
     $(`#cantidad${repetido.id}`).empty();
-    $(`#produc${repetido.id}`).empty();
-    $(`#cantidad${repetido.id}`).append(` <td id="cantidad${repetido.id}">${repetido.cantidad}</td>`);
-    $(`#produc${repetido.id}`).append(`<td id="produc${repetido.id}">$${repetido.cantidad * repetido.precio}</td>`);
+    $(`#precio${repetido.id}`).empty();
+    $(`#cantidad${repetido.id}`).append(`${repetido.cantidad}`);
+    $(`#precio${repetido.id}`).append(`<td id="produc${repetido.id}">$${repetido.cantidad * repetido.precio}</td>`);
 
     actualizarProductos();
   } else {
@@ -161,15 +159,15 @@ function agregarAlCarrito(id) {
         productoAgregar.cantidad = 1;
 
         carrito.push(productoAgregar);
-      
+
         //Se agrega en la tabla de productos la fila del nuevo producto ingresado
         $("#contenedor-carrito").append(`<tr id="tr${productoAgregar.id}">
                                            <th scope="row"></th>
                                            <td>${productoAgregar.nombre}</td>
-                                           <td id="cantidad${productoAgregar.id}">${productoAgregar.cantidad}</td>
-                                           <td><button id="sumar${productoAgregar.id}"  type="button" class="btn btn-success"><b> + </b></button>
-                                               <button  id="restar${productoAgregar.id}" type="button" class="btn btn-info"><b> - </b></button></td>
-                                           <td id="produc${productoAgregar.id}">$${productoAgregar.precio}</td>
+                                           <td ><button id="sumar${productoAgregar.id}"  type="button" class="btn btn-success"><b> + </b></button>
+                                           <b id="cantidad${productoAgregar.id}" class="cantProducto">${productoAgregar.cantidad}</b></td>
+                                           <button  id="restar${productoAgregar.id}" type="button" class="btn btn-info"><b> - </b></button></td>
+                                          <td id="precio${productoAgregar.id}">$${productoAgregar.precio}</td>
                                            <td id="eliminar${productoAgregar.id}"><img type="button" class="trash" src="IMG/trash.svg"></td>
                                         </tr>`);
 
@@ -179,7 +177,9 @@ function agregarAlCarrito(id) {
         //"boton eliminar" elimina todas las unidades del producto del carrito
         $(`#eliminar${productoAgregar.id}`).click(function(){
           carrito = carrito.filter(productoEliminar => productoEliminar.id != productoAgregar.id)
-          $("tr").remove(`#tr${productoAgregar.id}`);
+          $(`#tr${productoAgregar.id}`).css("background-color", "rgb(248, 157, 171)" )
+                                       .fadeOut(500)
+                                       
           actualizarProductos();
 
           Toastify({
@@ -192,7 +192,7 @@ function agregarAlCarrito(id) {
 
         //boton que suma una unidad del producto al carrito
         $(`#sumar${productoAgregar.id}`).click(function () {
-          agregarAlCarrito(id);
+          agregarAlCarrito(productoAgregar.id);
 
           Toastify({
             text: "Producto agregado",
@@ -216,12 +216,12 @@ function agregarAlCarrito(id) {
           } else {
             //Si todavia quedan unidades de ese producto en el carrito solo se disminuye la cantidad en el carrito y en la tabla
             $(`#cantidad${restarUnidad.id}`).empty();
-            $(`#produc${restarUnidad.id}`).empty();
-            $(`#cantidad${restarUnidad.id}`).append(` <td id="cantidad${restarUnidad.id}">${restarUnidad.cantidad}</td>`);
+            $(`#precio${restarUnidad.id}`).empty();
+            $(`#cantidad${restarUnidad.id}`).append(`${restarUnidad.cantidad}`);
             $(`#produc${restarUnidad.id}`).append(`<td id="produc${restarUnidad.id}">$${restarUnidad.cantidad * restarUnidad.precio}</td>`);
 
-            actualizarProductos(); 
-            
+            actualizarProductos();
+
             Toastify({
             text: "Producto eliminado",
             className: "info",
@@ -230,7 +230,7 @@ function agregarAlCarrito(id) {
           }).showToast();
           }
 
-         
+
         });
       }
     });
@@ -291,155 +291,6 @@ function actualizarProductos() {
   }
   guardarLocalStorage();
 }
-
-//Guarda los elementos del carrito en LocalStorage
-function guardarLocalStorage() {
-  localStorage.setItem("carritoGuardado", JSON.stringify(carrito));
-}
-
-//Obtencion de los elementos del carrito previamente guardados en local Storage
-function obtenerLocalStorage() {
-  mostrarProductos("todos");
-  $("#todos").prop("disabled", true);
-  let carritoActualizado = JSON.parse(localStorage.getItem("carritoGuardado"));
-
-  if (carritoActualizado) {
-    //Si hay productos en el carrito guardado en localStorage se agregan a la tabla del carrito y las cantidades al HEADER
-    carritoActualizado.forEach((productoStorage) => {
-      carrito.push(productoStorage);
-      actualizarProductos();
-      $("#contenedor-carrito").append(`<tr id="tr${productoStorage.id}">
-                                          <th scope="row"></th>
-                                          <td>${productoStorage.nombre}</td>
-                                          <td id="cantidad${productoStorage.id}">${productoStorage.cantidad}</td>
-                                          <td><button id="sumar${productoStorage.id}" type="button" class="btn btn-success"><b> + </b></button>
-                                              <button id="restar${productoStorage.id}" type="button" class="btn btn-info"><b> - </b></button></td>
-                                          <td id="produc${productoStorage.id}">$${productoStorage.precio * productoStorage.cantidad}</td>
-                                          <td id="eliminar${productoStorage.id}"><img class="trash" type="button"src="IMG/trash.svg"></td>
-                                        </tr>`);
-
-
-      //"boton eliminar" elimina todas las unidades del producto del carrito
-        $(`#eliminar${productoStorage.id}`).click(function(){
-          carrito = carrito.filter(productoEliminar => productoEliminar.id != productoStorage.id)
-          $("tr").remove(`#tr${productoStorage.id}`);
-          actualizarProductos()
-
-          Toastify({
-            text: "Producto eliminado",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
-          }).showToast();
-         
-        })
-
-      //boton que suma una unidad del producto al carrito
-      $(`#sumar${productoStorage.id}`).click(function () {
-        agregarAlCarrito(productoStorage.id);
-        Toastify({
-          text: "Producto agregado",
-          className: "info",
-          position: "center",
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-          },
-        }).showToast();
-      });
-
-      //boton que resta una unidad del producto al carrito
-      $(`#restar${productoStorage.id}`).click(function () {
-        let restarUno = carrito.find((produ) => produ.id == productoStorage.id);
-        restarUno.cantidad = restarUno.cantidad - 1;
-
-        //si no quedan mas de ese producto cumple la misma funcion que el "boton eliminar"
-        if (restarUno.cantidad === 0) {
-          $(`#eliminar${productoStorage.id}`).trigger("click")
-          
-        } else {
-           //Si todavia quedan unidades de ese producto en el carrito solo se disminuye la cantidad en el carrito y en la tabla
-          $(`#cantidad${restarUno.id}`).empty();
-          $(`#produc${restarUno.id}`).empty();
-          $(`#cantidad${restarUno.id}`).append(` <td id="cantidad${restarUno.id}">${restarUno.cantidad}</td>`);
-          $(`#produc${restarUno.id}`).append(`<td id="produc${restarUno.id}">$${restarUno.cantidad * restarUno.precio}</td>`);
-
-          actualizarProductos();
-
-          Toastify({
-            text: "Producto eliminado",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right, red, orange)" },
-          }).showToast();
-        }
-        
-      });
-    });
-  }
-}
-
-//funcion que inicia el formulario para finalizar la compra
-function formularioDeCompra() {
-  $("#formulario").append(`<form class="form"><button id="botonCerrar" class="btn btn-primary" >X</button>
-                                              <div class="row">
-                                                  <input placeholder="Nombre completo" id="nombre" type="text" class="validate">
-                                              </div>
-                                              <div class="row">
-                                                  <input  id="dirección" type="text" class="validate" placeholder="Direccion">
-                                              </div>
-                                              <div class="row">
-                                                  <input id="localidad" type="text" class="validate" placeholder="Localidad">
-                                              </div>
-                                              <div class="row">
-                                                  <input id="email" type="email" class="validate" placeholder="Email">
-                                              </div>
-                                              <div><b>Valor total de su compra es $${precio}</b>
-                                              </div>
-                                              <div><input class="btn btn-primary" type="submit" id="submit" value="Finalizar compra">
-                                              </div>
-                                       </form>`);
-
-//Funcionalidad de boton de "Finalizar compra" en el formulario
- $("#submit").click(function (e) {
-      e.preventDefault(); 
-      
-      //Si se completaron todos los campos del formulario la compra finaliza y se vacia el carrito y la tabla del carrito
-      if (($("#nombre").val() !="")  && ($("#direccion").val() !="" ) && ($("#localidad").val() !="" )&& ($("#email").val() !="" )){
-          Toastify({
-            text: "COMPRA REALIZADA CON EXITO",
-            className: "info",
-            position: "center",
-            style: { background: "linear-gradient(to right,#FFC300, #FF5733, #C70039, #900C3F)" },
-          }).showToast();
-
-          carrito = [];
-          $("#contenedor-carrito").empty()
-          $("#botonCerrar").trigger("click")
-         actualizarProductos()
-        } else {
-          //Si hay campos del formulario incompletos si indican los que faltan y no finaliza la compra
-             let inputs = $("#formulario").find(':input')
-             inputs.each(function(index,elemento) {
-                if($(elemento).val().length <= 0){
-                  $(elemento).css("border", "solid 3px #FA5858")
-                   }else{
-                     $(elemento).css('border', 'none')
-                    }
-              })
-             }  
-    })
-
-    //Funcionalidad del "boton cerrar" del formulario. Se vuelve a la tabla del carrito 
-   $("#botonCerrar").click(() => {
-    $("#formulario").hide();
-    $("#titulo_carrito").empty();
-    $("#titulo_carrito").append(`<h2>Carrito de compras</h2>`);
-    $(".table-carrito").show();
-  });
-}
-
-
-
 
 //Llamada de funcion visualizar el grid de productos
 mostrarPorCategoria();

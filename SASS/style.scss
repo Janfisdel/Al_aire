@@ -116,6 +116,8 @@ header {
 }
 
 .table-carrito {
+  margin-left: 5rem;
+  margin-right: 5rem;
   padding: 1rem;
 }
 
@@ -157,7 +159,7 @@ p {
 }
 
 #contenedor-productos {
-  justify-content: center;
+    justify-content: center;
 }
 
 
@@ -180,4 +182,7 @@ input {
  
   }
 
-
+.cantProducto {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
